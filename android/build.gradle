@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.buildGradleVersion = '3.5.4'
     ext.kotlinVersion = '1.4.21'
-    ext.protobufVersion = '0.8.8'
+    ext.protobufVersion = '0.8.13'
 
     repositories {
         google()
@@ -51,24 +51,18 @@ protobuf {
         // Download from repositories
         artifact = 'com.google.protobuf:protoc:3.14.0'
     }
-    plugins {
-        javalite {
-            // The codegen for lite comes as a separate artifact
-            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
-        }
-    }
+
     generateProtoTasks {
         all().each { task ->
             task.builtins {
-                remove java
-            }
-            task.plugins {
-                javalite {}
+                java {
+                    option "lite"
+                }
             }
         }
     }
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
+    implementation 'com.google.protobuf:protobuf-javalite:3.11.0'
 }
