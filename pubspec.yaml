@@ -7,10 +7,10 @@ issue_tracker: https://github.com/mintware-de/flutter_p2p/issues
 documentation: https://github.com/mintware-de/flutter_p2p/wiki
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
-  protobuf: ^1.0.0
+  protobuf: ^1.1.0
   flutter:
     sdk: flutter
 
@@ -20,9 +20,9 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 flutter:
   plugin:
-    android:
-      package: de.mintware.flutter_p2p
-      pluginClass: FlutterP2pPlugin
+    platforms:
+      android:
+        package: de.mintware.flutter_p2p
+        pluginClass: FlutterP2pPlugin
