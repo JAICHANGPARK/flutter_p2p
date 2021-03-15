@@ -45,6 +45,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    FlutterP2p.removeGroup();
+    _subscriptions.forEach((element) {element.cancel();});
     super.dispose();
   }
 
@@ -155,6 +157,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   Future<bool> _disconnect() async{
     bool result = await FlutterP2p.removeGroup();
+    _unregister();
     _socket = null;
     if(result) _isOpen = false;
     return result;
@@ -192,15 +195,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             ),
             Divider(),
             ListTile(
-              title: Text("Open and accept data from port 8888"),
+              title: Text("Open and accept data from port 8000"),
               subtitle: _isConnected ? Text("Active") : Text("Disable"),
-              onTap: _isConnected && _isHost ? () => _openPortAndAccept(8888) : null,
+              onTap: _isConnected && _isHost ? () => _openPortAndAccept(8000) : null,
             ),
             Divider(),
             ListTile(
-              title: Text("Connect to port 8888"),
+              title: Text("Connect to port 8000"),
               subtitle: Text("This is able to only Client"),
-              onTap: _isConnected &&!_isHost ? () => _connectToPort(8888) : null,
+              onTap: _isConnected &&!_isHost ? () => _connectToPort(8000) : null,
             ),
             Divider(),
             ListTile(
@@ -241,7 +244,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   snackBar(String text) {
-    _scaffoldKey.currentState.showSnackBar(
+    ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
       SnackBar(
         content: Text(text),
         duration: Duration(seconds: 2),

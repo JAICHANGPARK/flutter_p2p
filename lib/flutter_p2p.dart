@@ -10,6 +10,7 @@
 
 library flutter_p2p;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
